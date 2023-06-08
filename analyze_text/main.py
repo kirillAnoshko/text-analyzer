@@ -1,14 +1,25 @@
-class Text_analyze:
-    def __init__(self, text):
-        self.text = text
+class TextAnalyze:
+    def __init__(self, file="text.txt", mode="r", encoding="UTF-8"):
+        self.file = file
+        self.mode = mode
+        self.encoding = encoding
+        self.read_text()
+        self.print_text()
 
     def open_file(self):
-        content = open(self.text, "r", encoding="UTF-8")
-        text = content.read()
-        return text
+        with open(self.file, self.mode, encoding=self.encoding) as content:
+            return content.read()
+
+    def read_text(self):
+        self.txt = self.open_file()
+
+    def print_text(self):
+        print(self.txt)
+
+
+text1 = TextAnalyze()
+
                 
             
-file1 = Text_analyze("text.txt")
-text = file1.open_file()
-print(text)
+
                 
