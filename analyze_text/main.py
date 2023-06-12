@@ -1,23 +1,31 @@
 class TextAnalyze:
-    def __init__(self, file="text.txt", mode="r", encoding="UTF-8"):
-        self.file = file
-        self.mode = mode
-        self.encoding = encoding
-        self.read_text()
+    def __init__(self, file_name=None):
+        if file_name is None:
+            raise Exception("Не указан файл для анализа!")
+        self.read_file(file_name)
+        self.prepare_text()
         self.print_text()
 
-    def open_file(self):
-        with open(self.file, self.mode, encoding=self.encoding) as content:
-            return content.read()
+    def read_file(self, file_name):
+        """ пытается открыть файл и считать его в строку """
+        try:
+            with open(file_name, "r", encoding="UTF-8") as content:
+                self.file = content  # здесь получается файловый объект
+                self.text = self.file.read()  # здесь получается строка текста
+        except FileNotFoundError:
+            raise Exception(f"Файл {file_name} не найден!")
+        if not self.text:
+            raise Exception("Прочитанный файл пуст!")
 
-    def read_text(self):
-        self.txt = self.open_file()
+    def prepare_text(self):
+        self.text = self.text.lower()        
 
     def print_text(self):
-        print(self.txt)
+        """ выводит строку текста на экран """
+        print(self.text)
 
 
-text1 = TextAnalyze()
+TextAnalyze(file_name="text.txt")
 
                 
             
